@@ -35,6 +35,11 @@ dependencies {
     compile "com.squareup.retrofit2:retrofit:$retrofitVersion"
     compile "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
     compile "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
+    compile("com.squareup.retrofit2:converter-simplexml:$retrofitVersion") {
+        exclude module: 'stax-api'
+        exclude module: 'stax'
+        exclude module: 'xpp3'
+    }
     compile 'com.squareup.moshi:moshi:1.5.0'
 
     compile 'io.reactivex.rxjava2:rxjava:2.1.0'
