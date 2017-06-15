@@ -1,0 +1,14 @@
+*.iml
+*.dex
+*.class
+*.apk
+*.ap_
+bin/
+gen/
+.gradle/
+/build
+local.properties
+.idea/*
+!.idea/codeStyleSettings.xml
+!.idea/dictionaries/*
+/captures
