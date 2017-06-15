@@ -10,7 +10,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.converter.simplexml.SimpleXmlConverterFactory
 import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
@@ -24,8 +24,13 @@ class MainActivity : AppCompatActivity() {
     scheduleService.getDepartureSchedule()
       .observeOn(AndroidSchedulers.mainThread())
       .subscribe(
-        { Timber.d("Success") },
-        { Timber.d("Error") })
+        {
+          Timber.d("Success")
+          Timber.d(it.toString())
+        },
+        {
+          Timber.d("Error")
+        })
   }
 
   private fun createScheduleService(): ScheduleService {
@@ -36,10 +41,9 @@ class MainActivity : AppCompatActivity() {
     val httpClient = OkHttpClient.Builder().addInterceptor(logging).build()
 
     val retrofit: Retrofit = Retrofit.Builder()
-      .addConverterFactory(MoshiConverterFactory.create())
+      .addConverterFactory(SimpleXmlConverterFactory.create())
       .addCallAdapterFactory(callAdapterFactory)
       .baseUrl("http://kgd.aero/raspisanie/")
-      .client(httpClient)
       .build()
 
     return retrofit.create(ScheduleService::class.java)
